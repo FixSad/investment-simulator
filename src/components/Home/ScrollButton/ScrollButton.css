@@ -1,0 +1,43 @@
+.scroll-down-btn,
+.scroll-up-btn {
+    position: absolute;
+    background: none;
+    border: none;
+    cursor: pointer;
+    animation: bounce 1.5s infinite;
+    z-index: 9999;
+}
+
+.scroll-down-btn {
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.scroll-up-btn {
+    top: 7vh;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.scroll-down-btn svg,
+.scroll-up-btn svg {
+    font-size: 40px;
+    color: #007bff;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.scroll-down-btn:hover svg,
+.scroll-up-btn:hover svg {
+    transform: scale(1.2);
+    color: #ff6f61;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translate(-50%, 0);
+    }
+    50% {
+        transform: translate(-50%, -10px);
+    }
+}
