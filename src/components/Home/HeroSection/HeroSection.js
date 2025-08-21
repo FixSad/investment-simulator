@@ -1,8 +1,15 @@
 import React from 'react';
 import './HeroSection.css';
 import ScrollButton from '../ScrollButton/ScrollButton';
+import { useNavigate } from 'react-router-dom'; 
 
 const HeroSection = ({ onScrollDown, isVisible }) => {
+    const navigate = useNavigate(); 
+
+    const handleStartInvesting = () => {
+        navigate('/register'); 
+    };
+
     return (
         <section className={`hero ${isVisible ? '' : 'hidden'}`}>
             <div className="hero-content">
@@ -13,7 +20,7 @@ const HeroSection = ({ onScrollDown, isVisible }) => {
                 </div>
             </div>
             <div className="hero-buttons">
-                <button className="btn primary">Начать инвестировать</button>
+                <button className="btn primary" onClick={handleStartInvesting}>Начать инвестировать</button>
                 <button className="btn secondary">Узнать больше</button>
             </div>
             <ScrollButton direction="down" onClick={onScrollDown} />

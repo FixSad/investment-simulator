@@ -11,7 +11,7 @@
     width: 100%;
     opacity: 0;
     transform: translateY(50px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
+    transition: opacity 1s ease, transform 1s ease;
     will-change: transform, opacity;
     z-index: 1; 
     pointer-events: none; 
@@ -19,7 +19,7 @@
 
 .info.visible {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(50px);
     z-index: 2; 
     pointer-events: auto; 
 }
