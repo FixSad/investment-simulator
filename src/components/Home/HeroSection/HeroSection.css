@@ -1,20 +1,22 @@
 .hero {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background-color: #ffffff;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    opacity: 1;
-    transform: translateY(0);
-    transition: opacity 1s ease, transform 1s ease;
-    will-change: transform, opacity;
-    z-index: 2; 
-    pointer-events: auto; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+  background: linear-gradient(135deg, #f5f5f5, #313131, #313131);
+  background-size: 250% 250%; 
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 1s ease, transform 1s ease;
+  will-change: transform, opacity;
+  z-index: 2;
+  pointer-events: auto;
 }
 
 .hero.hidden {
@@ -69,12 +71,12 @@
 }
 
 .btn.primary {
-    background-color: #007bff;
+    background-color: #4e7399;
     color: white;
 }
 
 .btn.secondary {
-    background-color: #f0f0f0;
+    background-color: #E4E5EA;
     color: #333;
 }
 

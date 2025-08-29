@@ -23,7 +23,7 @@
 .scroll-down-btn svg,
 .scroll-up-btn svg {
     font-size: 40px;
-    color: #007bff;
+    color: #001b48;
     transition: transform 0.3s ease, color 0.3s ease;
 }
 

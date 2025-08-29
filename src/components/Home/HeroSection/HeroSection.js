@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './HeroSection.css';
 import ScrollButton from '../ScrollButton/ScrollButton';
 import { useNavigate } from 'react-router-dom'; 
+import { NotificationContext } from '../../ToastMessage/NotificationProvider';
+
 
 const HeroSection = ({ onScrollDown, isVisible }) => {
     const navigate = useNavigate(); 
+    const { showNotification } = useContext(NotificationContext);
 
     const handleStartInvesting = () => {
         navigate('/register'); 
     };
+    showNotification('Это тестовое уведомление!', 'danger');
 
     return (
         <section className={`hero ${isVisible ? '' : 'hidden'}`}>

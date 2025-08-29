@@ -1,0 +1,45 @@
+.notification {
+  position: fixed;
+  top: -100px; 
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px; 
+  background-color: #ffffff; 
+  color: #333333; 
+  border-radius: 8px; 
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); 
+  overflow: hidden; 
+  z-index: 1000; 
+}
+
+.notification::before {
+  content: '';
+  display: block;
+  height: 6px; 
+  background-color: #ff4d4f; 
+}
+
+.notification-content {
+  padding: 16px; 
+  font-size: 14px; 
+  line-height: 1.5; 
+  text-align: center; 
+}
+
+@keyframes slide-down {
+  from {
+    top: -100px; 
+  }
+  to {
+    top: 20px; 
+  }
+}
+
+@keyframes slide-up {
+  from {
+    top: 20px; 
+  }
+  to {
+    top: -100px; 
+  }
+}
