@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './Register.css';
+import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../../services/InternalServices/authService';
+import { NotificationContext } from '../../components/ToastMessage/NotificationProvider';
 
 const Login = () => {
+    const navigate = useNavigate();
+    const { showNotification } = useContext(NotificationContext); 
+
     const [password, setPassword] = useState("");
     const [username, setLogin] = useState("");
 
@@ -32,7 +37,7 @@ const Login = () => {
         return flag;
     }
 
-    const submitRegistration = async (e) => {
+    const submitLogin = async (e) => {
         e.preventDefault();
 
         const result = validate();
@@ -46,10 +51,15 @@ const Login = () => {
 
                 const response = await loginUser(data);
 
-                console.log("response - ", response);
+                if(response.status === 200) {
+                    localStorage.setItem('accessToken', response.data.token);
+                    navigate('/lk');
+                } else {
+                    alert(response.message);
+                }
+
             } catch (ex) {
-                console.error(ex); 
-                alert(`Ошибка: ${ex.message || "Не удалось войти. Попробуйте позже."}`);
+                showNotification(ex.response?.data?.description || ex.message);
             }
         }
     };
@@ -92,7 +102,7 @@ const Login = () => {
                                 Пароль обязателен к заполнению
                         </h6>
 
-                        <button onClick={submitRegistration} type="submit">Войти</button>
+                        <button onClick={submitLogin} type="submit">Войти</button>
                     </form>
                     <div className="auth-button">
                         <a href="/register">Нет аккаунта? Зарегистрироваться</a>

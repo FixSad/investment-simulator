@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './Register.css';
 import { createUser } from '../../services/InternalServices/authService';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
+import { NotificationContext } from '../../components/ToastMessage/NotificationProvider';
 
 const Register = () => {
     const navigate = useNavigate();
+    const { showNotification } = useContext(NotificationContext); 
 
     const EMAIL_REGEXP = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;   
     const [email, setEmail] = useState("");
@@ -70,12 +72,14 @@ const Register = () => {
                 
                 if (response.status === 200){
                     navigate('/login');
+                } else {
+                    showNotification(response.description);
                 }
 
                 console.log("response - ", response);
             } catch (ex) {
                 console.error(ex); 
-                alert(`Ошибка: ${ex.message || "Не удалось зарегистрироваться. Попробуйте позже."}`);
+                showNotification(`${ex.response?.data?.description || "Не удалось зарегистрироваться. Попробуйте позже."}`);
             }
         }
     };

@@ -12,7 +12,7 @@ const HeroSection = ({ onScrollDown, isVisible }) => {
     const handleStartInvesting = () => {
         navigate('/register'); 
     };
-    showNotification('Это тестовое уведомление!', 'danger');
+    
 
     return (
         <section className={`hero ${isVisible ? '' : 'hidden'}`}>
@@ -25,7 +25,7 @@ const HeroSection = ({ onScrollDown, isVisible }) => {
             </div>
             <div className="hero-buttons">
                 <button className="btn primary" onClick={handleStartInvesting}>Начать инвестировать</button>
-                <button className="btn secondary">Узнать больше</button>
+                <button className="btn secondary" onClick={() => showNotification('Это тестовое уведомление!', 'danger')}>Узнать больше</button>
             </div>
             <ScrollButton direction="down" onClick={onScrollDown} />
         </section>
