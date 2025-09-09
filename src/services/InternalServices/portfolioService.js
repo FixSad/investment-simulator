@@ -39,3 +39,19 @@ export const getPortfolio = async (id) => {
         throw error;
     }
 }
+
+export const AddFundsToPortfolio = async (funds, accessToken) => {
+    try {
+        console.log(accessToken);
+        const response = await internalApi.post(`/portfolio/addFunds`, funds, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error(`Ошибка при пополнении баланса на ${funds}`, error);
+        throw error;
+    }
+}
+

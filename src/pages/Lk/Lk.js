@@ -90,26 +90,28 @@ const Lk = () => {
 
             <div className="lk-container">
                 {/* Блок Портфолио */}
-                <div className="card portfolio-card">
-                    <h2>Портфолио</h2>
-                    {userInfo?.portfolios?.$values?.length > 0 ? (
-                        userInfo.portfolios.$values.map((portfolio, index) => (
-                            <div key={index} className="portfolio-item">
-                                <p>{portfolio.symbol}: {portfolio.quantity}</p>
-                            </div>
-                        ))
-                    ) : (
-                        <p>Портфолио пусто.</p>
-                    )}
+                <div className="card portfolio-card-top-left">
+        <div className="portfolio-header">
+            <h2>Портфолио</h2>
+            <span className="separator">|</span>
+            <div className="add-funds-container">
+                <span className="add-funds-text">Пополнить</span>
+                <button className="add-funds-button" onClick={() => setIsModalOpen(true)}>
+                    <AddIcon />
+                </button>
+            </div>
+        </div>
 
-                    {/* Кнопка "Пополнить" */}
-                    <div className="add-funds-container">
-                        <span className="add-funds-text">Пополнить</span>
-                        <button className="add-funds-button" onClick={() => setIsModalOpen(true)}>
-                            <AddIcon />
-                        </button>
-                    </div>
+        {userInfo?.portfolios?.$values?.length > 0 ? (
+            userInfo.portfolios.$values.map((portfolio, index) => (
+                <div key={index} className="portfolio-item">
+                    <p>{portfolio.symbol}: {portfolio.quantity}</p>
                 </div>
+            ))
+        ) : (
+            <p>Портфолио пусто.</p>
+        )}
+    </div>
 
                 {/* Блок Транзакций */}
                 <div className="card transactions-card">

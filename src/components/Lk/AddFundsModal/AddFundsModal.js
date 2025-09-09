@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './AddFundsModal.css';
+import { AddFundsToPortfolio } from '../../../services/InternalServices/portfolioService';
 
 const AddFundsModal = ({ isOpen, onClose }) => {
     const [usdtAmount, setUsdtAmount] = useState('');
@@ -9,13 +10,17 @@ const AddFundsModal = ({ isOpen, onClose }) => {
         setUsdtAmount('');
     };
 
-    const handleAddFunds = () => {
-        if (usdtAmount.trim() === '') {
-            alert('Введите сумму для пополнения.');
-            return;
+    const handleAddFunds = async () => {
+        try {
+            const res = {
+                funds: usdtAmount
+            }
+            const response = await AddFundsToPortfolio(res, localStorage.getItem('accessToken'));
+            console.log(response);
+        } catch (ex) {
+            console.log("ERROR", ex);
         }
-        alert(`Пополнение на ${usdtAmount} USDT успешно выполнено.`);
-        handleClose();
+        
     };
 
     if (!isOpen) return null;

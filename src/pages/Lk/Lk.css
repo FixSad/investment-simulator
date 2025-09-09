@@ -3,20 +3,67 @@
     background-size: 250% 250%;
     min-height: 100vh;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    align-items: flex-start; 
     font-family: 'Arial', sans-serif;
-    padding: 20px;
+    padding: 80px 20px 20px; 
 }
 
 .card {
     background: #fff;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin: 10px;
     padding: 20px;
     width: 300px;
     text-align: center;
+    margin-right: 100px; 
+    flex-shrink: 0; 
+}
+
+.card:last-child {
+    margin-right: 0; 
+}
+
+.portfolio-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.separator {
+    margin: 0 10px;
+    font-size: 1.2rem;
+    color: #ccc;
+}
+
+.add-funds-container {
+    display: flex;
+    align-items: center;
+    gap: 5px; 
+}
+
+.add-funds-text {
+    font-size: 1.2rem;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: -5px;
+}
+
+.add-funds-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease, color 0.3s ease;
+    color: #333;
+}
+
+.add-funds-button:hover {
+    transform: scale(1.2);
+    color: #3b9940;
+}
+
+.add-funds-button svg {
+    font-size: 1.5rem;
 }
 
 .card h2 {
@@ -62,36 +109,3 @@
 .logout-button:hover {
     background: #c0392b;
 }
-
-.add-funds-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 20px;
-}
-
-.add-funds-text {
-    font-size: 1.2rem;
-    color: #333;
-    margin-right: 10px;
-    font-weight: bold;
-}
-
-.add-funds-button {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    transition: transform 0.3s ease, color 0.3s ease;
-    color: #333; 
-}
-
-.add-funds-button:hover {
-    transform: scale(1.2); 
-    color: #3b9940; 
-}
-
-
-.add-funds-button svg {
-    font-size: 2rem; 
-}
-
