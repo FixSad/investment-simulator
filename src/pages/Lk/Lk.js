@@ -7,13 +7,34 @@ import { getUserInfo } from '../../services/InternalServices/authService';
 import AddIcon from '@mui/icons-material/Add';
 import PersonIcon from '@mui/icons-material/Person';
 import AddFundsModal from '../../components/Lk/AddFundsModal/AddFundsModal';
+import { GetBinancePairPrice } from '../../services/ExternalServices/binanceService';
 
 const Lk = () => {
     const navigate = useNavigate();
     const { showNotification } = useContext(NotificationContext);
     const [userInfo, setUserInfo] = useState(null);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const [isModalOpen, setIsModalOpen] = useState(false); 
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [pairPrices, setPairPrices] = useState({});
+
+    const getPairPrice = async () => {
+        if (!userInfo?.favourites?.$values) return;
+
+        const updatedPrices = {}; 
+
+        for (const pair of userInfo.favourites.$values) {
+            try {
+                const response = await GetBinancePairPrice(pair.symbol);
+                const truePrice = parseFloat(response.data.price).toString();
+                const symbol = response.data.symbol;
+                updatedPrices[symbol] = truePrice; 
+            } catch (ex) {
+                console.error(`Ошибка при получении цены для ${pair.symbol}:`, ex.message);
+            }
+        }
+
+        setPairPrices(updatedPrices);
+    };
 
     useEffect(() => {
         let isMounted = true;
@@ -30,7 +51,8 @@ const Lk = () => {
             try {
                 const response = await getUserInfo(accessToken);
                 if (isMounted && response.status === 200) {
-                    setUserInfo(response.data); 
+                    setUserInfo(response.data);
+                    getPairPrice(response.data.favourites);
                 }
             } catch (ex) {
                 if (isMounted) {
@@ -56,6 +78,12 @@ const Lk = () => {
         localStorage.removeItem('accessToken'); 
         navigate('/'); 
     };
+
+    useEffect(() => {
+        if (userInfo?.favourites?.$values) {
+            getPairPrice(); 
+        }
+    }, [userInfo]);
 
     return (
         <>
@@ -91,27 +119,27 @@ const Lk = () => {
             <div className="lk-container">
                 {/* Блок Портфолио */}
                 <div className="card portfolio-card-top-left">
-        <div className="portfolio-header">
-            <h2>Портфолио</h2>
-            <span className="separator">|</span>
-            <div className="add-funds-container">
-                <span className="add-funds-text">Пополнить</span>
-                <button className="add-funds-button" onClick={() => setIsModalOpen(true)}>
-                    <AddIcon />
-                </button>
-            </div>
-        </div>
+                    <div className="portfolio-header">
+                        <h2>Портфолио</h2>
+                        <span className="separator">|</span>
+                        <div className="add-funds-container">
+                            <span className="add-funds-text">Пополнить</span>
+                            <button className="add-funds-button" onClick={() => setIsModalOpen(true)}>
+                                <AddIcon />
+                            </button>
+                        </div>
+                    </div>
 
-        {userInfo?.portfolios?.$values?.length > 0 ? (
-            userInfo.portfolios.$values.map((portfolio, index) => (
-                <div key={index} className="portfolio-item">
-                    <p>{portfolio.symbol}: {portfolio.quantity}</p>
+                    {userInfo?.portfolios?.$values?.length > 0 ? (
+                        userInfo.portfolios.$values.map((portfolio, index) => (
+                            <div key={index} className="portfolio-item">
+                                <p>{portfolio.symbol}: {portfolio.quantity}</p>
+                            </div>
+                        ))
+                    ) : (
+                        <p>Портфолио пусто.</p>
+                    )}
                 </div>
-            ))
-        ) : (
-            <p>Портфолио пусто.</p>
-        )}
-    </div>
 
                 {/* Блок Транзакций */}
                 <div className="card transactions-card">
@@ -130,12 +158,17 @@ const Lk = () => {
                 {/* Блок Любимых пар */}
                 <div className="card favorites-card">
                     <h2>Любимые пары</h2>
-                    {userInfo?.favourites?.$values?.length > 0 ? (
-                        userInfo.favourites.$values.map((pair, index) => (
-                            <div key={index} className="favorite-item">
-                                <p>{pair.symbol}</p>
-                            </div>
-                        ))
+                    {userInfo?.favourites?.$values.length > 0 ? (
+                        userInfo.favourites.$values.map((pair, index) => {
+                            const symbol = pair.symbol;
+                            const price = pairPrices[symbol] || 'Загрузка...'; 
+
+                            return (
+                                <div key={index} className="favorite-item">
+                                    <p>{symbol}: {price}</p>
+                                </div>
+                            );
+                        })
                     ) : (
                         <p>Нет любимых пар.</p>
                     )}
