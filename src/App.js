@@ -5,6 +5,7 @@ import Login from './pages/Register/Login';
 import Lk from './pages/Lk/Lk';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { NotificationProvider } from './components/ToastMessage/NotificationProvider';
+import P2P from './pages/P2P/p2p';
 
 const App = () => {
     return (
@@ -15,6 +16,7 @@ const App = () => {
                     <Route path="/register" element={<Register />} /> 
                     <Route path="/login" element={<Login />} />
                     <Route path="/lk" element={<Lk />} />
+                    <Route path="/p2p" element={<P2P />}/>
                 </Routes>
             </Router>
         </NotificationProvider>
