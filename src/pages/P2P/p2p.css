@@ -1,38 +1,180 @@
-.container{
-    max-width: "600px";
-    margin: "50px auto";
-    padding: "20px";
-    border: "1px solid #ccc";
-    border-radius: "8px";
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Inter", sans-serif;
+  color: #666;
 }
 
-.formGroup{
-    margin-bottom: "15px";
+.p2p-page {
+  display: flex;
+  min-height: 100vh;
+  overflow: hidden;
 }
 
-p2pInput{
-    width: "100%";
-    padding: "8px";
-    margin-top: "5px";
-    border: "1px solid #ccc";
-    border-radius: "4px";
+.p2p-left {
+  width: 60%;
+  padding: 40px;
+  overflow-y: auto;
+  height: 100vh;
+  box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: #4e7399 #6d6d6d;
 }
 
-.selectButton{
-    padding: "5px 10px";
-    background-color: "#007bff";
-    color: "#fff";
-    border: "none";
-    border-radius: "4px";
-    cursor: "pointer";
+.p2p-left::-webkit-scrollbar {
+  width: 8px;
+}
+.p2p-left::-webkit-scrollbar-thumb {
+  background-color: #4e7399;
+  border-radius: 10px;
 }
 
-p2pButton{
-    width: "100%";
-    padding: "10px";
-    background-color: "#28a745";
-    color: "#fff";
-    border: "none";
-    border-radius: "4px";
-    cursor: "pointer";
+.p2p-right {
+  width: 40%;
+  position: fixed;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 40px;
+  box-sizing: border-box;
+}
+
+.selected-offer {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(78, 115, 153, 0.3);
+  border-radius: 16px;
+  padding: 30px;
+  width: 100%;
+  max-width: 380px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+  color: #f0f0f0;
+  backdrop-filter: blur(10px);
+  text-align: center;
+}
+
+.placeholder {
+  opacity: 0.7;
+  font-style: italic;
+}
+
+h1, h2 {
+  color: #2b2b2b;
+}
+
+.p2p-selects {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.p2p-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 6px;
+  color: #ccc;
+}
+
+select {
+  padding: 10px;
+  border: 1px solid #4e7399;
+  border-radius: 8px;
+  background: rgba(78, 115, 153, 0.1);
+  color: #f0f0f0;
+}
+
+select:focus {
+  outline: none;
+  border-color: #6d94c3;
+}
+
+.offers {
+  display: grid;
+  gap: 12px;
+}
+
+.offer-card {
+  background: rgba(78, 115, 153, 0.12);
+  border: 1px solid rgba(78, 115, 153, 0.3);
+  border-radius: 12px;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: 0.25s;
+}
+
+.offer-card:hover {
+  background: rgba(56, 66, 77, 0.2);
+  transform: translateY(-2px);
+}
+
+.offer-card h3 {
+  color: black;
+}
+
+.offer-card p {
+  color: #414141;
+  font-size: 14px;
+  font-weight:bold;
+}
+
+.offer-card button {
+  background: #4e7399;
+  border: none;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.offer-card button:hover {
+  background: #6d94c3;
+}
+
+.buy {
+  width: 100%;
+  padding: 12px;
+  background: #4e7399;
+  border: none;
+  border-radius: 12px;
+  color: #fff;
+  font-weight: 600;
+  margin-top: 15px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.buy:hover {
+  background: #6d94c3;
+}
+
+@media (max-width: 900px) {
+  .p2p-page {
+    flex-direction: column;
+  }
+
+  .p2p-left {
+    width: 100%;
+    height: auto;
+  }
+
+  .p2p-right {
+    position: static;
+    transform: none;
+    width: 100%;
+    padding: 20px;
+  }
+
+  .selected-offer {
+    max-width: none;
+  }
 }
